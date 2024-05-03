@@ -29,8 +29,13 @@ const shortUrls = {}
 app.get('/api/shorturl/:index', function (req, res) {
   index = Number(req.params.index)
   url = Object.keys(shortUrls).find(key => shortUrls[key] === index)
-  
-  res.redirect(url)
+
+  if (url) {
+    res.redirect(url)
+  }
+  else {
+    res.json({ "error": "No short URL found for the given input" })
+  }
 })
 
 app.post('/api/shorturl', function (req, res) {
